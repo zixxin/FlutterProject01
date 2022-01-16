@@ -40,29 +40,45 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-            margin: const EdgeInsets.all(5.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // IconButton(
-                //   color: Colors.black,
-                //   icon: const Icon(Icons.arrow_back_ios),
-                //   onPressed: () {},
-                // ),
-                const Text('Search',
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 35)),
-                Container(
-                    margin: const EdgeInsets.only(top: 15.0),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(10), //모서리를 둥글게
-                        border: Border.all(
-                            color: Colors.black12, width: 50))), //테두리
-              ],
-            ),
+          padding: const EdgeInsets.only(top: 15.0, left: 5.0, right: 5.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // const Text('Search',
+                  //     textAlign: TextAlign.start,
+                  //     style: TextStyle(
+                  //         fontWeight: FontWeight.bold, fontSize: 35)),
+                  Container(
+                      width: 150,
+                      margin: const EdgeInsets.only(top: 15.0),
+                      decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(10), //모서리를 둥글게
+                          border:
+                              Border.all(color: Colors.black12, width: 50))),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      width: 150,
+                      margin: const EdgeInsets.only(top: 15.0),
+                      decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(10), //모서리를 둥글게
+                          border:
+                              Border.all(color: Colors.black12, width: 50))),
+                ],
+              ),
+            ],
+            // ),
+            // ],
           ),
         ),
       ),
