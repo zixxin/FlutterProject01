@@ -88,11 +88,12 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(height: 10),
           TextField(
             decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(12)),
+                enabledBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.circular(12)),
                 fillColor: Colors.grey[200],
                 filled: true,
                 // border: InputBorder.none,
