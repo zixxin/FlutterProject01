@@ -86,16 +86,22 @@ class _MyHomePageState extends State<MyHomePage> {
           const Text('Search',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35)),
           Container(height: 10),
-          Container(
-            padding: const EdgeInsets.only(left: 15.0),
-            alignment: Alignment.centerLeft,
-            height: 40,
-            width: displaysize.width * 0.8,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.grey[200],
-            ),
-            child: const Icon(Icons.search, color: Colors.grey),
+          TextField(
+            decoration: InputDecoration(
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                ),
+                fillColor: Colors.grey[200],
+                filled: true,
+                // border: InputBorder.none,
+                // focusedBorder: InputBorder.none,
+                prefixIcon:
+                    const Icon(Icons.search, color: Colors.grey), // 검색 아이콘 추가
+                contentPadding: const EdgeInsets.only(
+                    left: 5, bottom: 13, top: 13, right: 5),
+                hintText: '검색어 입력'),
           ),
           Container(height: 30),
           DropdownButtonFormField(
