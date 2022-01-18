@@ -30,7 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // final Size displaysize = MediaQuery.of(context).size;
+    final Size displaysize = MediaQuery.of(context).size;
 
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () {},
           ),
           const Text('Search',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 33)),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
           Container(height: 10),
           TextField(
             decoration: InputDecoration(
@@ -102,45 +102,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   color: Colors.grey,
                   size: 23.0,
                 ), // 검색 아이콘 추가
-                suffixIcon: const Icon(
-                  Icons.clear_rounded,
-                  color: Colors.grey,
-                  size: 23.0,
-                ),
+                // suffixIcon: const Icon(
+                //   Icons.clear_rounded,
+                //   color: Colors.grey,
+                //   size: 23.0,
+                // ),
                 contentPadding: const EdgeInsets.only(left: 5, right: 5),
                 hintText: 'Search for Items'),
           ),
+          Container(height: 15),
+          _bestitemstext(),
+          _bestitemsscroller(),
           Container(height: 30),
-          _infoLine(),
-          // DropdownButtonFormField(
-          //   decoration: InputDecoration(
-          //     focusedBorder: OutlineInputBorder(
-          //         borderSide: const BorderSide(color: Colors.white),
-          //         borderRadius: BorderRadius.circular(30)),
-          //     enabledBorder: OutlineInputBorder(
-          //         borderSide: const BorderSide(color: Colors.white),
-          //         borderRadius: BorderRadius.circular(30)),
-          //     border: InputBorder.none,
-          //     contentPadding: const EdgeInsets.only(
-          //         left: 27, bottom: 13, top: 13, right: 20),
-          //     filled: true,
-          //     fillColor: Colors.grey[200],
-          //   ),
-          //   isExpanded: true,
-          //   value: dropdownvalue,
-          //   icon: const Icon(Icons.arrow_drop_down),
-          //   items: items.map((String items) {
-          //     return DropdownMenuItem(
-          //       value: items,
-          //       child: Text(items),
-          //     );
-          //   }).toList(),
-          //   onChanged: (String? newValue) {
-          //     setState(() {
-          //       dropdownvalue = newValue!;
-          //     });
-          //   },
-          // ),
+          _infoLine(), // 필터, item 개수, view 모드
           _itemList01(), // 상품 리스트 첫째 줄
           _itemList02(), // 상품 리스트 둘째 줄
           _itemList03(), // 상품 리스트 셋째 줄
@@ -149,6 +123,163 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+Widget _bestitemstext() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Image.asset("img/pin.png", width: 26, height: 26)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 7)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: const [
+          Text('Best Seller',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        ],
+      ),
+    ],
+  );
+}
+
+// best item 나열을 위한 가로 스크롤
+Widget _bestitemsscroller() {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+      SizedBox(
+        height: 270, // fixed height
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          // ListView : 스크롤 가능 (children)
+          children: <Widget>[_bestitems()],
+        ),
+      ),
+    ],
+  );
+}
+
+// best item 나열
+Widget _bestitems() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 130,
+            height: 120,
+            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(10) //모서리를 둥글게
+                ),
+            child: Image.asset("img/nikedaybreak02.png"),
+          ),
+          Container(height: 5),
+          const Text('01', style: TextStyle(fontSize: 14)),
+          Container(height: 5),
+          const Text('데이브레이크',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Container(height: 5),
+          const Text('Nike', style: TextStyle(fontSize: 13)),
+          Container(height: 10),
+          const Text('119,000',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          Container(height: 8),
+          _stars481()
+        ],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 20)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 130,
+            height: 120,
+            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(10) //모서리를 둥글게
+                ),
+            child: Image.asset("img/nikewaffletrainer.png"),
+          ),
+          Container(height: 5),
+          const Text('02', style: TextStyle(fontSize: 14)),
+          Container(height: 5),
+          const Text('와플 트레이너',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Container(height: 5),
+          const Text('Nike', style: TextStyle(fontSize: 13)),
+          Container(height: 10),
+          const Text('89,000',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          Container(height: 8),
+          _stars482()
+        ],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 20)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 130,
+            height: 120,
+            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(10) //모서리를 둥글게
+                ),
+            child: Image.asset("img/nikecoatvision01.png"),
+          ),
+          Container(height: 5),
+          const Text('03', style: TextStyle(fontSize: 14)),
+          Container(height: 5),
+          const Text('코트 비전 알타 LTR',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          Container(height: 5),
+          const Text('Nike', style: TextStyle(fontSize: 13)),
+          Container(height: 10),
+          const Text('89,000',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+          Container(height: 8),
+          _stars46()
+        ],
+      ),
+    ],
+  );
 }
 
 // 상품 나타내기 필터, 아이템 개수, 상품 view
@@ -177,7 +308,7 @@ Widget _infoLine() {
 // 상품 나타내기 필터
 Widget _filter() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.start, // 위젯 사이 공간 동일하게 만들기
+    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -212,7 +343,7 @@ Widget _filter() {
 // 아이템 개수, 상품 view
 Widget _itemForms() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.end, // 위젯 사이 공간 동일하게 만들기
+    mainAxisAlignment: MainAxisAlignment.end,
     children: <Widget>[
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -220,11 +351,11 @@ Widget _itemForms() {
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
         children: const [
-          Text('8 items',
+          Text('359 items',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
         ],
       ),
-      Container(width: 15.0),
+      Container(width: 12.0),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -234,8 +365,7 @@ Widget _itemForms() {
           Icon(Icons.crop_square, color: Colors.grey, size: 26.0)
         ],
       ),
-      // crop_square
-      Container(width: 5.0),
+      Container(width: 3.0),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -249,9 +379,45 @@ Widget _itemForms() {
   );
 }
 
-Widget _stars48() {
+Widget _stars481() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.start, // 위젯 사이 공간 동일하게 만들기
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          Icon(Icons.star_rounded, color: Colors.yellow[700], size: 20.0)
+        ],
+      ),
+      Container(width: 2),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: const [
+          Text('4.8',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13))
+        ],
+      ),
+      Container(width: 2),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: const [Text('(175)', style: TextStyle(fontSize: 13))],
+      ),
+    ],
+  );
+}
+
+Widget _stars482() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -287,7 +453,7 @@ Widget _stars48() {
 
 Widget _stars46() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.start, // 위젯 사이 공간 동일하게 만들기
+    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -323,7 +489,7 @@ Widget _stars46() {
 
 Widget _stars45() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.start, // 위젯 사이 공간 동일하게 만들기
+    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -414,7 +580,7 @@ Widget _itemList01() {
           const Text('119,000',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           Container(height: 8),
-          _stars48()
+          _stars481()
         ],
       ),
     ],
@@ -449,7 +615,7 @@ Widget _itemList02() {
           const Text('89,000',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           Container(height: 8),
-          _stars48()
+          _stars482()
         ],
       ),
       Container(width: 20),
@@ -476,7 +642,7 @@ Widget _itemList02() {
           const Text('119,000',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           Container(height: 8),
-          _stars48()
+          _stars481()
         ],
       ),
     ],
@@ -511,7 +677,7 @@ Widget _itemList03() {
           const Text('89,000',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           Container(height: 8),
-          _stars48()
+          _stars482()
         ],
       ),
       Container(width: 20),
@@ -575,7 +741,7 @@ Widget _itemList04() {
           const Text('119,000',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
           Container(height: 8),
-          _stars48()
+          _stars481()
         ],
       ),
       Container(width: 20),
@@ -608,43 +774,3 @@ Widget _itemList04() {
     ],
   );
 }
-
-// // 상품 리스트 셋째 줄 - iPad Mini color
-// Widget _iPadMiniColor() {
-//   return Row(
-//     mainAxisAlignment: MainAxisAlignment.spaceEvenly, // 위젯 사이 공간 동일하게 만들기
-//     children: <Widget>[
-//       Column(
-//         // mainAxisAlignment: MainAxisAlignment.start,
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Container(
-//             width: 15,
-//             height: 15,
-//             margin: const EdgeInsets.only(top: 15.0, bottom: 8.0),
-//             decoration: BoxDecoration(
-//                 color: const Color(0xFF666467),
-//                 borderRadius: BorderRadius.circular(100) //모서리를 둥글게
-//                 ),
-//           ),
-//         ],
-//       ),
-//       Container(width: 5),
-//       Column(
-//         // mainAxisAlignment: MainAxisAlignment.start,
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Container(
-//             width: 15,
-//             height: 15,
-//             margin: const EdgeInsets.only(top: 15.0, bottom: 8.0),
-//             decoration: BoxDecoration(
-//                 color: const Color(0xFFE5D2D0),
-//                 borderRadius: BorderRadius.circular(100) //모서리를 둥글게
-//                 ),
-//           ),
-//         ],
-//       ),
-//     ],
-//   );
-// }
