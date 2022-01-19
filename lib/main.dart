@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,9 +31,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size displaysize = MediaQuery.of(context).size;
+    // final Size displaysize = MediaQuery.of(context).size;
+
+//     final List<Tab> myTabs = <Tab>[
+//       const Tab(text: '전체'),
+//       const Tab(text: '의류'),
+//       const Tab(text: '신발'),
+//     ];
+
+//     TabController _tabController;
+// //
+    // @override
+    // void initState() {
+    //   super.initState();
+    //   _tabController = TabController(length: 3, vsync: this);
+    // }
+
+    // @override
+    // void dispose() {
+    //   _tabController.dispose();
+    //   super.dispose();
+    // }
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      // backgroundColor: Colors.transparent,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -49,72 +72,51 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const [
           BottomNavigationBarItem(
             title: Text('Explore'),
-            icon: Icon(Icons.home_outlined),
+            icon: Icon(Icons.home_outlined, size: 23.0),
           ),
           BottomNavigationBarItem(
             title: Text('Search'),
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search_rounded, size: 23.0),
           ),
           BottomNavigationBarItem(
             title: Text('Favorites'),
-            icon: Icon(Icons.favorite_border),
+            icon: Icon(Icons.favorite_border, size: 23.0),
           ),
           BottomNavigationBarItem(
-            title: Text('Cart'),
-            icon: Icon(Icons.shopping_cart_outlined),
-          ),
-          BottomNavigationBarItem(
-            title: Text('Me'),
-            icon: Icon(Icons.person_outline),
+            title: Text('Profile'),
+            icon: Icon(Icons.person_outline, size: 23.0),
           ),
         ],
       ),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFFAFAFA),
+        elevation: 0.0,
+        bottom: const PreferredSize(
+          child: Text(
+            '',
+          ),
+          preferredSize: Size(200, 10),
+        ),
+        // bottom: TabBar(
+        //   indicatorSize: TabBarIndicatorSize.tab,
+        //   // controller: _tabController,
+        //   tabs: myTabs,
+        // ),
+        title: Expanded(
+            child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[_logonicon()],
+          ),
+        )),
+      ),
       body: ListView(
         // ListView : 스크롤 가능 (children)
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.only(top: 115.0, bottom: 20.0),
         children: <Widget>[
-          IconButton(
-            padding: const EdgeInsets.only(top: 40.0, bottom: 15.0),
-            iconSize: 33.0,
-            alignment: Alignment.topLeft,
-            color: Colors.black,
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {},
-          ),
-          const Text('Search',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
-          Container(height: 10),
-          TextField(
-            decoration: InputDecoration(
-                isDense: true,
-                focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(15)),
-                enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(15)),
-                fillColor: Colors.grey[200],
-                filled: true,
-                // border: InputBorder.none,
-                // focusedBorder: InputBorder.none,
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                  size: 23.0,
-                ), // 검색 아이콘 추가
-                // suffixIcon: const Icon(
-                //   Icons.clear_rounded,
-                //   color: Colors.grey,
-                //   size: 23.0,
-                // ),
-                contentPadding: const EdgeInsets.only(left: 5, right: 5),
-                hintText: 'Search for Items'),
-          ),
-          Container(height: 15),
           _bestitemstext(),
           _bestitemsscroller(),
-          Container(height: 30),
-          _infoLine(), // 필터, item 개수, view 모드
+          Container(height: 13),
+          _infoLine(context), // 필터, item 개수, view 모드
           _itemList01(), // 상품 리스트 첫째 줄
           _itemList02(), // 상품 리스트 둘째 줄
           _itemList03(), // 상품 리스트 셋째 줄
@@ -123,6 +125,94 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+Widget _logonicon() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 5.0),
+              child: Image.asset("img/nike.png", width: 50, height: 50))
+        ],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 5)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          SizedBox(
+            width: 235,
+            height: 40,
+            child: TextField(
+              decoration: InputDecoration(
+                  isDense: true,
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xFFFAFAFA)),
+                      borderRadius: BorderRadius.circular(17)),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xFFFAFAFA)),
+                      borderRadius: BorderRadius.circular(17)),
+                  fillColor: Colors.grey[200],
+                  filled: true,
+                  // border: InputBorder.none,
+                  // focusedBorder: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey[600],
+                    size: 23.0,
+                  ), // 검색 아이콘 추가
+                  // suffixIcon: const Icon(
+                  //   Icons.clear_rounded,
+                  //   color: Colors.grey,
+                  //   size: 23.0,
+                  // ),
+                  contentPadding: const EdgeInsets.only(left: 5, right: 5),
+                  hintText: 'Search'),
+            ),
+          ),
+        ],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [_shoppingCartBadge()],
+      ),
+    ],
+  );
+}
+
+Widget _shoppingCartBadge() {
+  return Badge(
+    position: BadgePosition.topEnd(top: -1, end: 2),
+    // animationDuration: Duration(milliseconds: 300),
+    animationType: BadgeAnimationType.slide,
+    badgeColor: const Color(0xFFE57373),
+    badgeContent: const Text(
+      '2',
+      style: TextStyle(color: Colors.white),
+    ),
+    child: IconButton(
+        icon: const Icon(Icons.shopping_cart_outlined,
+            color: Colors.black, size: 28.0),
+        onPressed: () {}),
+  );
 }
 
 Widget _bestitemstext() {
@@ -134,7 +224,11 @@ Widget _bestitemstext() {
         crossAxisAlignment: CrossAxisAlignment.start,
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [Image.asset("img/pin.png", width: 26, height: 26)],
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 25.0),
+              child: Image.asset("img/pin.png", width: 24, height: 24)),
+        ],
       ),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -150,7 +244,7 @@ Widget _bestitemstext() {
         // Column에서는 crossAxis가 가로, mainAxis가 세로
         children: const [
           Text('Best Seller',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
         ],
       ),
     ],
@@ -183,11 +277,18 @@ Widget _bestitems() {
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 20)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 130,
-            height: 120,
-            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            width: 120,
+            height: 110,
+            margin: const EdgeInsets.only(top: 12.0, bottom: 5.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -195,16 +296,15 @@ Widget _bestitems() {
             child: Image.asset("img/nikedaybreak02.png"),
           ),
           Container(height: 5),
-          const Text('01', style: TextStyle(fontSize: 14)),
+          const Text('01', style: TextStyle(fontSize: 13)),
           Container(height: 5),
-          const Text('데이브레이크',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          Container(height: 5),
+          const Text('데이브레이크', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('119,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars481()
         ],
       ),
@@ -220,9 +320,9 @@ Widget _bestitems() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 130,
-            height: 120,
-            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            width: 120,
+            height: 110,
+            margin: const EdgeInsets.only(top: 12.0, bottom: 5.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -230,16 +330,15 @@ Widget _bestitems() {
             child: Image.asset("img/nikewaffletrainer.png"),
           ),
           Container(height: 5),
-          const Text('02', style: TextStyle(fontSize: 14)),
+          const Text('02', style: TextStyle(fontSize: 13)),
           Container(height: 5),
-          const Text('와플 트레이너',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          Container(height: 5),
+          const Text('와플 트레이너', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('89,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars482()
         ],
       ),
@@ -255,9 +354,43 @@ Widget _bestitems() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 130,
-            height: 120,
-            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            width: 120,
+            height: 110,
+            margin: const EdgeInsets.only(top: 12.0, bottom: 5.0),
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(10) //모서리를 둥글게
+                ),
+            child: Image.asset("img/nikedaybreak01.png"),
+          ),
+          Container(height: 5),
+          const Text('03', style: TextStyle(fontSize: 13)),
+          Container(height: 5),
+          const Text('데이브레이크', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
+          const Text('Nike', style: TextStyle(fontSize: 13)),
+          Container(height: 7),
+          const Text('119,000',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
+          _stars481()
+        ],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 20)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 120,
+            height: 110,
+            margin: const EdgeInsets.only(top: 12.0, bottom: 5.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -265,25 +398,31 @@ Widget _bestitems() {
             child: Image.asset("img/nikecoatvision01.png"),
           ),
           Container(height: 5),
-          const Text('03', style: TextStyle(fontSize: 14)),
+          const Text('04', style: TextStyle(fontSize: 13)),
           Container(height: 5),
-          const Text('코트 비전 알타 LTR',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-          Container(height: 5),
+          const Text('코트 비전 알타 LTR', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('89,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars46()
         ],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 20)],
       ),
     ],
   );
 }
 
 // 상품 나타내기 필터, 아이템 개수, 상품 view
-Widget _infoLine() {
+Widget _infoLine(BuildContext context) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween, // 위젯 사이 공간 동일하게 만들기
     children: <Widget>[
@@ -292,31 +431,9 @@ Widget _infoLine() {
         crossAxisAlignment: CrossAxisAlignment.start,
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [_filter()],
-      ),
-      Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // Row에서는 mainAxis가 가로, crossAxis가 세로
-        // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [_itemForms()],
-      ),
-    ],
-  );
-}
-
-// 상품 나타내기 필터
-Widget _filter() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: <Widget>[
-      Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // Row에서는 mainAxis가 가로, crossAxis가 세로
-        // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: const [
-          Icon(Icons.tune_rounded, color: Colors.grey, size: 26.0)
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 25.0), child: _itemForms()),
         ],
       ),
       Column(
@@ -324,16 +441,10 @@ Widget _filter() {
         crossAxisAlignment: CrossAxisAlignment.start,
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [Container(width: 10)],
-      ),
-      Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // Row에서는 mainAxis가 가로, crossAxis가 세로
-        // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: const [
-          Text('filter',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17))
+        children: [
+          Container(
+              margin: const EdgeInsets.only(right: 26.0),
+              child: _filter(context)),
         ],
       ),
     ],
@@ -343,7 +454,7 @@ Widget _filter() {
 // 아이템 개수, 상품 view
 Widget _itemForms() {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.end,
+    mainAxisAlignment: MainAxisAlignment.start,
     children: <Widget>[
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -351,28 +462,41 @@ Widget _itemForms() {
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
         children: const [
-          Text('359 items',
+          Text('Total 359',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
         ],
       ),
-      Container(width: 12.0),
+    ],
+  );
+}
+
+// 상품 나타내기 필터
+Widget _filter(BuildContext context) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: <Widget>[
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: const [Icon(Icons.sort_rounded, size: 20.0)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [Container(width: 5)],
+      ),
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
         children: const [
-          Icon(Icons.crop_square, color: Colors.grey, size: 26.0)
-        ],
-      ),
-      Container(width: 3.0),
-      Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        // Row에서는 mainAxis가 가로, crossAxis가 세로
-        // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [
-          Icon(Icons.grid_view_outlined, color: Colors.red[300], size: 23.0)
+          Text('정렬 기준',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14))
         ],
       ),
     ],
@@ -537,7 +661,7 @@ Widget _itemList01() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 12.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -545,26 +669,24 @@ Widget _itemList01() {
             child: Image.asset("img/nikeairpos.png"),
           ),
           Container(height: 5),
-          const Text('에어포스 1 폰탄카',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('에어포스 1 폰탄카', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('149,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars46()
         ],
       ),
-      Container(width: 20),
       Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 12.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -572,15 +694,14 @@ Widget _itemList01() {
             child: Image.asset("img/nikedaybreak02.png"),
           ),
           Container(height: 5),
-          const Text('데이브레이크',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('데이브레이크', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('119,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
-          _stars481()
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
+          _stars481(),
         ],
       ),
     ],
@@ -599,7 +720,7 @@ Widget _itemList02() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 25.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 22.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -607,18 +728,16 @@ Widget _itemList02() {
             child: Image.asset("img/nikejdserieses.png"),
           ),
           Container(height: 5),
-          const Text('조던 시리즈 ES',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('조던 시리즈 ES', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('89,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars482()
         ],
       ),
-      Container(width: 20),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -626,7 +745,7 @@ Widget _itemList02() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 25.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 22.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -634,14 +753,13 @@ Widget _itemList02() {
             child: Image.asset("img/nikedaybreak01.png"),
           ),
           Container(height: 5),
-          const Text('데이브레이크',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('데이브레이크', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('119,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars481()
         ],
       ),
@@ -661,7 +779,7 @@ Widget _itemList03() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 25.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 22.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -669,18 +787,16 @@ Widget _itemList03() {
             child: Image.asset("img/nikewaffletrainer.png"),
           ),
           Container(height: 5),
-          const Text('와플 트레이너',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('와플 트레이너', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('89,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars482()
         ],
       ),
-      Container(width: 20),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -688,7 +804,7 @@ Widget _itemList03() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 25.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 22.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -696,14 +812,13 @@ Widget _itemList03() {
             child: Image.asset("img/nikecoatvision01.png"),
           ),
           Container(height: 5),
-          const Text('코트 비전 알타 LTR',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('코트 비전 알타 LTR', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('89,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars46()
         ],
       ),
@@ -725,7 +840,7 @@ Widget _itemList04() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 22.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -733,18 +848,16 @@ Widget _itemList04() {
             child: Image.asset("img/nikedaybreak03.png"),
           ),
           Container(height: 5),
-          const Text('데이브레이크',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('데이브레이크', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('119,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars481()
         ],
       ),
-      Container(width: 20),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -752,7 +865,7 @@ Widget _itemList04() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 15.0, bottom: 7.0),
+            margin: const EdgeInsets.only(top: 22.0, bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -760,14 +873,13 @@ Widget _itemList04() {
             child: Image.asset("img/nikecoatlegacy.png"),
           ),
           Container(height: 5),
-          const Text('코트 레거시',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
-          Container(height: 5),
+          const Text('코트 레거시', style: TextStyle(fontSize: 14)),
+          Container(height: 3),
           const Text('Nike', style: TextStyle(fontSize: 13)),
-          Container(height: 10),
+          Container(height: 7),
           const Text('69,000',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-          Container(height: 8),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+          Container(height: 5),
           _stars45()
         ],
       ),
