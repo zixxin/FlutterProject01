@@ -27,31 +27,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _selectedIndex = 1;
-
   @override
   Widget build(BuildContext context) {
-    // final Size displaysize = MediaQuery.of(context).size;
-
-//     final List<Tab> myTabs = <Tab>[
-//       const Tab(text: '전체'),
-//       const Tab(text: '의류'),
-//       const Tab(text: '신발'),
-//     ];
-
-//     TabController _tabController;
-// //
-    // @override
-    // void initState() {
-    //   super.initState();
-    //   _tabController = TabController(length: 3, vsync: this);
-    // }
-
-    // @override
-    // void dispose() {
-    //   _tabController.dispose();
-    //   super.dispose();
-    // }
+    final Size displaysize = MediaQuery.of(context).size;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -59,49 +37,84 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
-        selectedItemColor: Colors.red[300],
+        selectedItemColor: Colors.black,
         unselectedItemColor: Colors.grey,
         selectedFontSize: 14,
         unselectedFontSize: 14,
-        currentIndex: _selectedIndex, //현재 선택된 Index
+        currentIndex: 0, //현재 선택된 Index
         onTap: (int index) {
           // setState(() {
           //   _selectedIndex = index;
           // });
         },
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            title: Text('Explore'),
-            icon: Icon(Icons.home_outlined, size: 23.0),
+            title: const Text('', style: TextStyle(fontSize: 0.0)),
+            icon: Icon(Icons.menu_rounded, size: displaysize.width * 0.08),
           ),
           BottomNavigationBarItem(
-            title: Text('Search'),
-            icon: Icon(Icons.search_rounded, size: 23.0),
+            title: const Text('', style: TextStyle(fontSize: 0.0)),
+            icon: Icon(Icons.search_rounded, size: displaysize.width * 0.08),
           ),
           BottomNavigationBarItem(
-            title: Text('Favorites'),
-            icon: Icon(Icons.favorite_border, size: 23.0),
+            title: const Text('', style: TextStyle(fontSize: 0.0)),
+            icon: Icon(Icons.home_outlined, size: displaysize.width * 0.08),
           ),
           BottomNavigationBarItem(
-            title: Text('Profile'),
-            icon: Icon(Icons.person_outline, size: 23.0),
+            title: const Text('', style: TextStyle(fontSize: 0.0)),
+            icon: Icon(Icons.favorite_border_rounded,
+                size: displaysize.width * 0.08),
+          ),
+          BottomNavigationBarItem(
+            title: const Text('', style: TextStyle(fontSize: 0.0)),
+            icon: Icon(Icons.person_outline_rounded,
+                size: displaysize.width * 0.08),
           ),
         ],
       ),
       appBar: AppBar(
         backgroundColor: const Color(0xFFFAFAFA),
         elevation: 0.0,
-        bottom: const PreferredSize(
-          child: Text(
-            '',
+        bottom: PreferredSize(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            // Row에서는 mainAxis가 가로, crossAxis가 세로
+            // Column에서는 crossAxis가 가로, mainAxis가 세로
+            children: [
+              Container(height: 10),
+              SizedBox(
+                width: displaysize.width * 0.9,
+                height: 40,
+                child: TextField(
+                  decoration: InputDecoration(
+                      isDense: true,
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Color(0xFFFAFAFA)),
+                          borderRadius: BorderRadius.circular(17)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Color(0xFFFAFAFA)),
+                          borderRadius: BorderRadius.circular(17)),
+                      fillColor: Colors.grey[200],
+                      filled: true,
+                      // border: InputBorder.none,
+                      // focusedBorder: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.grey[600],
+                        size: displaysize.width * 0.06,
+                      ), // 검색 아이콘 추가
+                      contentPadding: const EdgeInsets.only(left: 5, right: 5),
+                      hintText: 'Search'),
+                ),
+              ),
+              Container(height: 10)
+            ],
           ),
-          preferredSize: Size(200, 10),
+          preferredSize: Size(displaysize.width * 0.9, 50),
         ),
-        // bottom: TabBar(
-        //   indicatorSize: TabBarIndicatorSize.tab,
-        //   // controller: _tabController,
-        //   tabs: myTabs,
-        // ),
         title: Expanded(
             child: SingleChildScrollView(
           child: Column(
@@ -111,11 +124,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView(
         // ListView : 스크롤 가능 (children)
-        padding: const EdgeInsets.only(top: 115.0, bottom: 20.0),
+        padding: const EdgeInsets.only(top: 165.0, bottom: 20.0),
         children: <Widget>[
           _bestitemstext(),
           _bestitemsscroller(),
-          Container(height: 13),
+          Container(height: 10),
           _infoLine(context), // 필터, item 개수, view 모드
           _itemList01(), // 상품 리스트 첫째 줄
           _itemList02(), // 상품 리스트 둘째 줄
@@ -127,6 +140,54 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// dropdown menu 설정
+Widget _selectMenus() {
+  final _valueList = ['신발', '의류', '용품'];
+  var _selectedValue = '신발';
+
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Column(
+        // mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          DropdownButton(
+            icon: const Icon(Icons.keyboard_arrow_down_rounded,
+                color: Colors.black, size: 35.0),
+            underline: const SizedBox(),
+            borderRadius: BorderRadius.circular(20),
+            value: _selectedValue,
+            items: _valueList.map(
+              (value) {
+                return DropdownMenuItem(
+                  value: value,
+                  child: Text(
+                    value,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
+                  ),
+                );
+              },
+            ).toList(),
+            onChanged: (value) {
+              // setState(() {
+              //   _selectedValue = value;
+              // });
+            },
+          ),
+        ],
+      ),
+    ],
+  );
+}
+
+// 화면 제일 상단의 나이키 로고, dropdown button, 장바구니 icon
 Widget _logonicon() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,45 +208,7 @@ Widget _logonicon() {
         crossAxisAlignment: CrossAxisAlignment.start,
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [Container(width: 5)],
-      ),
-      Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // Row에서는 mainAxis가 가로, crossAxis가 세로
-        // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [
-          SizedBox(
-            width: 235,
-            height: 40,
-            child: TextField(
-              decoration: InputDecoration(
-                  isDense: true,
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFFFAFAFA)),
-                      borderRadius: BorderRadius.circular(17)),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xFFFAFAFA)),
-                      borderRadius: BorderRadius.circular(17)),
-                  fillColor: Colors.grey[200],
-                  filled: true,
-                  // border: InputBorder.none,
-                  // focusedBorder: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey[600],
-                    size: 23.0,
-                  ), // 검색 아이콘 추가
-                  // suffixIcon: const Icon(
-                  //   Icons.clear_rounded,
-                  //   color: Colors.grey,
-                  //   size: 23.0,
-                  // ),
-                  contentPadding: const EdgeInsets.only(left: 5, right: 5),
-                  hintText: 'Search'),
-            ),
-          ),
-        ],
+        children: [_selectMenus()],
       ),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -198,9 +221,10 @@ Widget _logonicon() {
   );
 }
 
+// badge 달린 shopping bag icon
 Widget _shoppingCartBadge() {
   return Badge(
-    position: BadgePosition.topEnd(top: -1, end: 2),
+    position: BadgePosition.topEnd(top: 1, end: 2),
     // animationDuration: Duration(milliseconds: 300),
     animationType: BadgeAnimationType.slide,
     badgeColor: const Color(0xFFE57373),
@@ -209,8 +233,8 @@ Widget _shoppingCartBadge() {
       style: TextStyle(color: Colors.white),
     ),
     child: IconButton(
-        icon: const Icon(Icons.shopping_cart_outlined,
-            color: Colors.black, size: 28.0),
+        icon: const Icon(Icons.shopping_bag_outlined,
+            color: Colors.black, size: 30.0),
         onPressed: () {}),
   );
 }
@@ -470,6 +494,82 @@ Widget _itemForms() {
   );
 }
 
+Widget _up(BuildContext context) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+      Row(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 25.0, top: 20.0),
+              height: 50,
+              child: const Text('신상품순',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        ],
+      ),
+      Row(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 25.0, top: 5.0),
+              height: 50,
+              child: Text('추천순',
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.red[300],
+                      fontWeight: FontWeight.bold))),
+        ],
+      ),
+      Row(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 25.0, top: 5.0),
+              height: 50,
+              child: const Text('리뷰 많은 순',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        ],
+      ),
+      Row(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 25.0, top: 5.0),
+              height: 50,
+              child: const Text('높은 가격 순',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        ],
+      ),
+      Row(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // Row에서는 mainAxis가 가로, crossAxis가 세로
+        // Column에서는 crossAxis가 가로, mainAxis가 세로
+        children: [
+          Container(
+              margin: const EdgeInsets.only(left: 25.0, top: 5.0, bottom: 20.0),
+              height: 50,
+              child: const Text('낮은 가격 순',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+        ],
+      ),
+    ],
+  );
+}
+
 // 상품 나타내기 필터
 Widget _filter(BuildContext context) {
   return Row(
@@ -480,14 +580,26 @@ Widget _filter(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: const [Icon(Icons.sort_rounded, size: 20.0)],
-      ),
-      Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // Row에서는 mainAxis가 가로, crossAxis가 세로
-        // Column에서는 crossAxis가 가로, mainAxis가 세로
-        children: [Container(width: 5)],
+        children: [
+          IconButton(
+            icon: const Icon(Icons.sort_rounded),
+            color: Colors.black,
+            iconSize: 20.0,
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return SingleChildScrollView(
+                        child: Container(
+                      padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom),
+                      child: _up(context),
+                    ));
+                  });
+            },
+          ),
+        ],
       ),
       Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -495,7 +607,7 @@ Widget _filter(BuildContext context) {
         // Row에서는 mainAxis가 가로, crossAxis가 세로
         // Column에서는 crossAxis가 가로, mainAxis가 세로
         children: const [
-          Text('정렬 기준',
+          Text('추천순',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14))
         ],
       ),
@@ -661,7 +773,7 @@ Widget _itemList01() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 12.0, bottom: 7.0),
+            margin: const EdgeInsets.only(bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
@@ -686,7 +798,7 @@ Widget _itemList01() {
           Container(
             width: 160,
             height: 150,
-            margin: const EdgeInsets.only(top: 12.0, bottom: 7.0),
+            margin: const EdgeInsets.only(bottom: 7.0),
             decoration: BoxDecoration(
                 color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(10) //모서리를 둥글게
